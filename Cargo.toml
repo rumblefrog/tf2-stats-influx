@@ -18,3 +18,4 @@ futures = "0.3"
 
 [profile.release]
 lto = true
+opt-level = 'z'
