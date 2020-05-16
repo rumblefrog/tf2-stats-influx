@@ -1,0 +1,18 @@
+[general]
+# HTTP endpoint of the influxdb
+influx-endpoint = ""
+
+# Database name within influxdb to use
+influx-database = "tf2-servers"
+
+# Key map of servers to collect metrics from
+# The key name will be used as a tag when submitting to influx
+[servers]
+
+    [servers.alpha]
+    host = "1.1.1.1"
+
+    # Game server port, will default to 27015 if not provided
+    port = "27015"
+    
+    rcon-password = "foobar"
