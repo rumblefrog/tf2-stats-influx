@@ -31,10 +31,8 @@ pub struct ServerReading {
 }
 
 pub async fn measure_server(name: &str, server: &Server) -> Option<ServerReading> {
-    let port: u16 = server.port.into();
-
     if let Ok(mut conn) = Connection::connect(
-        format!("{}:{}", server.host, server.port.into()),
+        format!("{}:{}", server.host, Into::<u16>::into(server.port.clone())),
         &server.rcon_password,
     )
     .await

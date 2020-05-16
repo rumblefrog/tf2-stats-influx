@@ -1,4 +1,5 @@
 use std::collections::BTreeMap;
+use std::convert::From;
 
 use serde::{Deserialize, Serialize};
 
@@ -37,8 +38,8 @@ pub struct Server {
     pub rcon_password: String,
 }
 
-#[derive(Deserialize, Serialize, Debug)]
-pub struct Port(pub u16);
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub struct Port(u16);
 
 impl Default for Port {
     fn default() -> Self {
@@ -46,8 +47,8 @@ impl Default for Port {
     }
 }
 
-impl From<u16> for Port {
-    fn from(port: u16) -> Self {
-        Port(port)
+impl From<Port> for u16 {
+    fn from(port: Port) -> Self {
+        port.0
     }
 }
