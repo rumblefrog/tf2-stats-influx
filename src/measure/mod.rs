@@ -1,5 +1,6 @@
 use chrono::{DateTime, Utc};
 use influxdb::InfluxDbWriteable;
+use rcon::Connection;
 
 use crate::config::Server;
 
@@ -29,6 +30,19 @@ pub struct ServerReading {
     pub time: DateTime<Utc>,
 }
 
-pub async fn measure_server(_name: &str, _server: &Server) -> Option<ServerReading> {
+pub async fn measure_server(name: &str, server: &Server) -> Option<ServerReading> {
+    let port: u16 = server.port.into();
+
+    if let Ok(mut conn) = Connection::connect(
+        format!("{}:{}", server.host, server.port.into()),
+        &server.rcon_password,
+    )
+    .await
+    {
+        if let Ok(stats) = conn.cmd("stats").await {
+
+        }
+    }
+
     unimplemented!()
 }
