@@ -38,10 +38,16 @@ pub struct Server {
 }
 
 #[derive(Deserialize, Serialize, Debug)]
-pub struct Port(u16);
+pub struct Port(pub u16);
 
 impl Default for Port {
     fn default() -> Self {
         Port(27015)
+    }
+}
+
+impl From<u16> for Port {
+    fn from(port: u16) -> Self {
+        Port(port)
     }
 }
