@@ -5,6 +5,8 @@ use std::fs::read_to_string;
 use std::thread;
 use std::time::Duration;
 
+use anyhow::Result;
+
 use futures::future::join_all;
 
 use crossbeam::{select, unbounded};
@@ -12,7 +14,7 @@ use crossbeam::{select, unbounded};
 use influxdb::{Client, InfluxDbWriteable, WriteQuery};
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<()> {
     let content = read_to_string("config.toml")?;
 
     let config: config::Config = toml::from_str(&content)?;
@@ -40,14 +42,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     measure_futures.push(measure::measure_server(name, server));
                 }
 
-                let result: Vec<Option<measure::ServerReading>> = join_all(measure_futures).await;
+                let result: Vec<Result<measure::ServerReading>> = join_all(measure_futures).await;
 
                 let mut queries: Vec<WriteQuery> = Vec::new();
 
                 let mut record_futures = Vec::new();
 
                 for query in result {
-                    if let Some(reading) = query {
+                    if let Ok(reading) = query {
                         queries.push(reading.into_query("server_query"));
                     }
                 }
