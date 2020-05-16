@@ -11,6 +11,9 @@ influx-user = "fish"
 # Influx user password
 influx-password = "bar"
 
+# Querying interval in minutes
+interval = 5
+
 # Key map of servers to collect metrics from
 # The key name will be used as a tag when submitting to influx
 [servers]
