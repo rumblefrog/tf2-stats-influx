@@ -69,8 +69,8 @@ pub async fn measure_server(name: &str, server: &Server) -> Result<ServerReading
         let fields: Vec<&str> = SPLITTER.split(raw_fields).collect();
 
         // Ensure at least 8 fields is present
-        if fields.len() != 8 {
-            return Err(anyhow!("Fields length is not equal to 8"));
+        if fields.len() < 8 {
+            return Err(anyhow!("Fields length is not at least 8"));
         }
 
         return Ok(ServerReading {

@@ -37,6 +37,9 @@ async fn main() -> Result<()> {
     loop {
         select! {
             recv(query_rx) -> _ => {
+                let mut ok_ret: u8 = 0;
+                let mut err_ret: u8 = 0;
+
                 let mut measure_futures = Vec::new();
 
                 for (name, server) in &config.servers {
@@ -52,6 +55,10 @@ async fn main() -> Result<()> {
                 for query in result {
                     if let Ok(reading) = query {
                         queries.push(reading.into_query("server_query"));
+
+                        ok_ret += 1;
+                    } else {
+                        err_ret += 1;
                     }
                 }
 
@@ -60,6 +67,8 @@ async fn main() -> Result<()> {
                 }
 
                 join_all(record_futures).await;
+
+                println!("Queried {} servers with {} passing, and {} failing", config.servers.len(), ok_ret, err_ret);
             },
         }
     }
