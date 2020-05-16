@@ -22,6 +22,6 @@ interval = 5
     host = "1.1.1.1"
 
     # Game server port, will default to 27015 if not provided
-    port = "27015"
+    port = 27015
     
     rcon-password = "foobar"
