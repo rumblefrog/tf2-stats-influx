@@ -5,6 +5,12 @@ influx-endpoint = ""
 # Database name within influxdb to use
 influx-database = "tf2-servers"
 
+# Influx authentication user
+influx-user = "fish"
+
+# Influx user password
+influx-password = "bar"
+
 # Key map of servers to collect metrics from
 # The key name will be used as a tag when submitting to influx
 [servers]

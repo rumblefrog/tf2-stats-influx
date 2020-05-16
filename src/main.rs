@@ -22,7 +22,8 @@ async fn main() -> Result<()> {
     let client = Client::new(
         config.general.influx_endpoint,
         config.general.influx_database,
-    );
+    )
+    .with_auth(config.general.influx_user, config.general.influx_password);
 
     let idle_time = 60 * config.general.interval;
 

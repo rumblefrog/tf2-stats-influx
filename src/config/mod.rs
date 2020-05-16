@@ -22,6 +22,12 @@ pub struct General {
     /// Database name within influxdb to use
     pub influx_database: String,
 
+    /// Influx authentication user
+    pub influx_user: String,
+
+    /// Influx user password
+    pub influx_password: String,
+
     /// Interval in minutes to query servers and collect metrics
     pub interval: u64,
 }
