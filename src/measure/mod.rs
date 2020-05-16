@@ -39,14 +39,14 @@ pub struct ServerReading {
 
 pub async fn measure_server(name: &str, server: &Server) -> Result<ServerReading> {
     // format: CPU percent, Bandwidth in, Bandwidth out, uptime, changelevels, framerate, total players
-	// _snprintf(buf, bufSize - 1, "%-6.2f %-10.2f %-11.2f %-7i %-12i %-8.2f %-8i %-8i",
-	// 			sv.GetCPUUsage() * 100, 
-	// 			avgIn / 1024.0f,
-	// 			avgOut / 1024.0f,
-	// 			(int)(Sys_FloatTime()) / 60,
-	// 			sv.GetSpawnCount() - 1,
-	// 			1.0/host_frametime, // frame rate
-	// 			sv.GetNumClients() - sv.GetNumProxies(),
+    // _snprintf(buf, bufSize - 1, "%-6.2f %-10.2f %-11.2f %-7i %-12i %-8.2f %-8i %-8i",
+    // 			sv.GetCPUUsage() * 100, 
+    // 			avgIn / 1024.0f,
+    // 			avgOut / 1024.0f,
+    // 			(int)(Sys_FloatTime()) / 60,
+    // 			sv.GetSpawnCount() - 1,
+    // 			1.0/host_frametime, // frame rate
+    // 			sv.GetNumClients() - sv.GetNumProxies(),
     // 			sv.GetNumConnections());
 
     // CPU    In_(KB/s)  Out_(KB/s)  Uptime  Map_changes  FPS      Players  Connects
