@@ -15,6 +15,8 @@ use influxdb::{Client, InfluxDbWriteable, WriteQuery};
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    println!("Starting server stats monitor");
+
     let content = read_to_string("config.toml")?;
 
     let config: config::Config = toml::from_str(&content)?;
@@ -53,12 +55,15 @@ async fn main() -> Result<()> {
                 let mut record_futures = Vec::new();
 
                 for query in result {
-                    if let Ok(reading) = query {
-                        queries.push(reading.into_query("server_query"));
+                    match query {
+                        Ok(reading) => {
+                            queries.push(reading.into_query("server_query"));
 
-                        ok_ret += 1;
-                    } else {
-                        err_ret += 1;
+                            ok_ret += 1;
+                        },
+                        Err(_) => {
+                            err_ret += 1;
+                        }
                     }
                 }
 
